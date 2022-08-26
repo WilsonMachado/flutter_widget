@@ -5,15 +5,23 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   
-  static const Color primary = Colors.green;
+  static const Color primary = Colors.indigo;
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     
-    primaryColor: primary, // Color primario. Hay Widgets que usan este color por defecto, pero no es el caso del AppBar
+    // Color primario. Hay Widgets que usan este color por defecto, pero no es el caso del AppBar
+    primaryColor: primary, 
     
-    appBarTheme: const AppBarTheme( // Tema de las AppBars que no tengan parámetros custom
+    // Tema de las AppBars que no tengan parámetros custom
+    appBarTheme: const AppBarTheme( 
       color: primary,
       elevation: 0
+    ),
+
+    textButtonTheme: TextButtonThemeData(
+
+      style: TextButton.styleFrom(primary: primary),
+
     )
   );
 }
