@@ -18,6 +18,7 @@ class CustomCardType1 extends StatelessWidget {
             ),
             subtitle: Text('Incididunt laboris consectetur mollit irure.'),
           ),
+          
           Padding(
             padding: const EdgeInsets.only(right: 5),
             child: Row(
@@ -29,6 +30,7 @@ class CustomCardType1 extends StatelessWidget {
                 }, child: const Center(
                   child: Text('Cancel'),
                 )),
+                
                 TextButton(onPressed: () {
                   
                 }, child: const Center(

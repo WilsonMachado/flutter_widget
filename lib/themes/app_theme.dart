@@ -17,11 +17,34 @@ class AppTheme {
       color: primary,
       elevation: 0
     ),
-
+    
+    // Text buttons
+    
     textButtonTheme: TextButtonThemeData(
 
       style: TextButton.styleFrom(primary: primary),
 
-    )
+    ),
+
+    // Floating Actions Buttons
+
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: primary,
+      elevation: 10
+    ),
+
+    // Elevated button
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        
+        primary: primary,
+        
+        shape: const StadiumBorder(), // Para que no sea cuadrado por defecto. Con la propiedad side se pueden definir cada uno de los lados
+        
+        elevation: 0
+      )
+    ),
+
   );
 }

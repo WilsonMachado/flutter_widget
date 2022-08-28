@@ -11,14 +11,7 @@ class AppRoutes {
       '/'; // Considerar la ruta inicial como '/' en lugar de '/home' o algo así
 
   static final menuOptions = <MenuOption>[
-    // TODO: Borrar Home. Ojico
-
-    MenuOption(
-        route: '/',
-        name: 'Home Screen',
-        screen: const HomeScreen(),
-        icon: Icons.home_outlined),
-
+      
     MenuOption(
         route: '/listview1',
         name: 'List Tipo 1',
@@ -42,12 +35,27 @@ class AppRoutes {
         name: 'Alerts - Alertas',
         screen: const AlertScreen(),
         icon: Icons.sd_card_alert_sharp),
+    
+    MenuOption(
+        route: '/avartar',
+        name: 'Avatar',
+        screen: const AvatarScreen(),
+        icon: Icons.person_outline_outlined),
+
+    MenuOption(
+        route: '/animated',
+        name: 'Animated Screen',
+        screen: const AnimatedScreen(),
+        icon: Icons.smart_screen),
+
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() { // Esto es un método, es decir, una función global y por ende debe llevar los (). IMPORTANTE RECORDAR
 
     Map<String, Widget Function(BuildContext)> appRoutes = {};
       
+      appRoutes.addAll({'/': (BuildContext context) => const HomeScreen()}); // de esta manera no aparece el Home Screen en el menú. También ser removió del arreglo 'menuOptions'.
+
       for (final option in menuOptions){
         appRoutes.addAll({option.route: (BuildContext context) => option.screen});
       }
