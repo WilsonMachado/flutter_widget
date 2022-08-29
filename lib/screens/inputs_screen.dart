@@ -1,95 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widgets/widgets/widgets.dart';
 
 class InputsScreen extends StatelessWidget {
-   
   const InputsScreen({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
+    // * Esta es la primera vez que vamos a usar la key. Son usadas para mantener la referencia a un Widget
+    // -- final GlobalKay<TipoDeKey> estadoAMantener = GlobalKay<TipoDeKey>() *Se repite para ser explícito
+    final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
+
+    final Map<String, String> formValues = {
+      'name': 'Wilson',
+      'apellido': 'Machado',
+      'email': 'wilson.machado@colbits.com.co',
+      'password': '123456',
+      'role': 'Admin'
+    };
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text('Inputs y Forms'),
+        appBar: AppBar(
+          title: const Center(
+            child: Text('Inputs y Forms'),
+          ),
         ),
-      ),
-      body: SingleChildScrollView( // Funciona como un ListView, pero con un solo elemento. Y si el widget hijo supera las dimensiones de la pantalla, permite hacer scroll
+        body: SingleChildScrollView(
+          // Funciona como un ListView, pero con un solo elemento. Y si el widget hijo supera las dimensiones de la pantalla, permite hacer scroll
 
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          children: [
-
-             // Se puede usar el TextField o el TRextFormField. El primero se usa cuando se requiere algo sin formulario, el segundo cuando se trabaja con formularios. Se recomienda trabajar con TextFormField en la mayoría de los casos porque permite agregar variaciones automáticas. El TextFormField posee más variaciones en un formulario.
-
-            TextFormField(
-              autofocus: false, // Para que al entrar en la screen del formulario, el cursor se posicione automáticamente allí
-
-              initialValue: '', // Texto inicial en el Input
-
-              textCapitalization: TextCapitalization.words, // Para que el texto 'Se Vea Así'
-
-              onChanged: (value) { // value será lo que el usuario ingresa en el TextFormField
-                print(value);
-              },
-
-              validator: (value) { // Sirve para realizar las validaciones del texto: si debe tener un número mínimo de caracteres, tener un formato definido (expresión regular), etc
-
-              if ( value == null) return 'Este campo es obligatorio';
-
-              return value.length < 3 ? 'Se requiere un mínimo de 3 caracteres' : null;
-                
-              },
-
-              autovalidateMode: AutovalidateMode.onUserInteraction, // El validator requiere un disparador y este es el autoivalidateMode. La opción más natural es cuando el usuario interactúa con la app, es decir, onUserInteraction.
-
-              decoration: const InputDecoration( // Para personalizar el TextFormField
-               
-
-                hintText: 'Nombre del usuario', // Similar al PlaceHolder en HTML5
-
-                labelText: 'Nombre', // Para la indicación en el Input
-
-                helperText: 'Solo letras', // Otro tipo de indicación
-
-                counterText: '3 caracteres', // Contar el número de caracteres, puede servir también para indiciar cuántos caracteres le faltan al usuario
-
-                suffixIcon: Icon(Icons.group_add_outlined), // Ícono a la derecha del InputText 
-
-                //prefixIcon: Icon(Icons.verified_user_outlined), // Ícono a la izquierda del TextField
-
-                icon: Icon(Icons.verified_user_outlined), // Ícono a la izquierda del TextField. La diferencia con el prefixIcon es que corre toda la línea a la derecha. Decomentar la línea del prefixIcon para apreciar lo anterior.
-                /*
-                border: OutlineInputBorder( // Permite cambiar los bordes del TextInput
-
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Form(
+              key:
+                  myFormKey, //* Acá se usa la key para mantener la referencia del formulario. Es decir, el estado del formulario se puede referenciar mediante este key
+              child: Column(
+                children: [
+                  CustomInputField(
+                    labelText: 'Nombre',
+                    hintText: 'Nombre del usuario',
+                    formProperty: 'name',
+                    formValues: formValues,
                   ),
-                
-                ),
-
-                */
-
-                 // Cambiar el color no es tan sencillo porque el TextInput tiene varios estados: cuando no está seleccionado, cuando está seleccionado, cuando da error, etc. Para cambiar el color cuando está seleccionado, por ejemplo:
-                
-                /*
-
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.red // Ya quedó, pero fijarse que perdió la forma que se definió en el border. Lo mejor es establecer estilos globales para los TextFields.
+                  const SizedBox(
+                    height: 30,
                   ),
-                ),
+                  CustomInputField(
+                    labelText: 'Apellido',
+                    hintText: 'Apellido del usuario',
+                    formProperty: 'apellido',
+                    formValues: formValues,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  CustomInputField(
+                    labelText: 'Correo',
+                    hintText: 'Correo del usuario',
+                    keyboardType: TextInputType.emailAddress,
+                    formProperty: 'email',
+                    formValues: formValues,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  CustomInputField(
+                    labelText: 'Contraseña',
+                    hintText: 'Contraseña del usuario',
+                    obsucureText: true,
+                    formProperty: 'password',
+                    formValues: formValues,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                   
+                  DropdownButtonFormField<String>( // Menú desplegable
+                    items: const[
+                      DropdownMenuItem(value: 'Admin',child: Text('Admin')), // item del menú desplegable
+                      DropdownMenuItem(value: 'User',child: Text('User')),
+                      DropdownMenuItem(value: 'Guest',child: Text('Guest')),
+                    ],
+                    
+                    onChanged: (value) => formValues['role'] = value ?? 'User', // Lo que se realiza cuando se selecciona un item del menú delplegable
+                    
+                  ),
 
-                */
-
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  
+                  ElevatedButton(
+                      onPressed: () {
+                        FocusScope.of(context).requestFocus(
+                            FocusNode()); // Quitar el teclado al presionar el botón que dispara el formulario
+                        if (!(myFormKey.currentState!.validate())) {
+                          // Dispara las validaciones establecidas en los campos del formulario. El segundo signo de admiración es para decirle a Flutter: 'Confía en mí! Siempre habrá un estado al presionar el botón que dispara el formulario'
+                          print('Formulario no válido');
+                          return;
+                        }
+                        // TODO: imprimir valores del formulario!
+                        print(formValues);
+                      },
+                      child: const Center(child: Text('Guardar')))
+                ],
               ),
-
             ),
-          ],
-        ),
-      ),
-
-      )
-    );
+          ),
+        ));
   }
 }

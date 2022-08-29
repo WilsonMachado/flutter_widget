@@ -54,6 +54,18 @@ class AppRoutes {
         screen: const InputsScreen(),
         icon: Icons.text_format_outlined),
 
+    MenuOption(
+        route: '/slider',
+        name: 'Slider Screen',
+        screen: const SliderScreen(),
+        icon: Icons.menu_open_outlined),
+    
+    MenuOption(
+        route: '/listbuilder',
+        name: 'Infinite Scroll',
+        screen: const ListViewBuilderScreen(),
+        icon: Icons.build_circle_outlined)
+
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() { // Esto es un método, es decir, una función global y por ende debe llevar los (). IMPORTANTE RECORDAR
