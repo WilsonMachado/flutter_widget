@@ -46,5 +46,29 @@ class AppTheme {
       )
     ),
 
+    // Inputs Decorations
+
+    inputDecorationTheme: const InputDecorationTheme(
+      floatingLabelStyle: TextStyle( color: primary ),// No el de behavior porque ese es de comportamiento
+      enabledBorder: OutlineInputBorder( // Bordes cuando el TextInput está habilitado
+        
+        borderSide: BorderSide( color: primary ), // Color de bordes
+        
+        borderRadius: BorderRadius.only( // Forma de los bordes
+          topRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10)
+        ),
+      ),
+
+      focusedBorder: BorderSide( color: primary ), // Color de bordes
+        
+        borderRadius: BorderRadius.only( // Forma de los bordes
+          topRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10)
+        ),
+      ),
+
+    );
+
   );
 }

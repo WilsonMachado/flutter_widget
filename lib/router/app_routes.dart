@@ -48,6 +48,12 @@ class AppRoutes {
         screen: const AnimatedScreen(),
         icon: Icons.smart_screen),
 
+    MenuOption(
+        route: '/inputs',
+        name: 'Input Forms',
+        screen: const InputsScreen(),
+        icon: Icons.text_format_outlined),
+
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() { // Esto es un método, es decir, una función global y por ende debe llevar los (). IMPORTANTE RECORDAR
