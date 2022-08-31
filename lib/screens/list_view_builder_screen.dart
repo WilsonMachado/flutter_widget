@@ -10,6 +10,7 @@ class ListViewBuilderScreen extends StatefulWidget {
 }
 
 class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
+  
   final List<int> imagesIds = [
     1,
     2,
@@ -80,7 +81,7 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
             controller: scrollController,
             physics:
                 const BouncingScrollPhysics(), // Para dar el efecto de rebote como en IOS al estar en Android
-            itemCount: 10,
+            itemCount: imagesIds.length,
             itemBuilder: (BuildContext context, int index) {
               return Column(
                 children: [
